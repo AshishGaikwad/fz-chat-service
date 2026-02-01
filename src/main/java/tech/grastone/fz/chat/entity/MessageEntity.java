@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Table(name="messages")
 @Getter
 @Setter
-@Builder
 public class MessageEntity extends BaseEntity implements Serializable {
 
     @Id
@@ -23,7 +22,7 @@ public class MessageEntity extends BaseEntity implements Serializable {
     private long id;
     private long senderId;
     private long receiverId;
-    @Column(length = 256)
+    @Column(length = 1000)
     private String content;
 
     private LocalDateTime deliveredAt;

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import tech.grastone.fz.chat.entity.MessageEntity;
 import tech.grastone.fz.chat.enums.DeliveryStatus;
 import tech.grastone.fz.chat.model.ChatMessageModel;
@@ -19,7 +22,8 @@ import tech.grastone.fz.chat.service.MessageService;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("api")
 public class ChatController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
@@ -56,12 +60,11 @@ public class ChatController {
 	public MessageEntity saveMessage(@RequestBody ChatMessageModel messageModel) {
 		logger.debug("Received message to save: {}", messageModel);
 
-		MessageEntity entity = MessageEntity.builder()
-				.senderId(Long.parseLong(messageModel.getSender()))
-				.receiverId(Long.parseLong(messageModel.getRecipient()))
-				.content(messageModel.getContent())
-				.status(DeliveryStatus.PENDING)
-				.build();
+		MessageEntity entity = new MessageEntity();
+		entity.setSenderId(Long.parseLong(messageModel.getSender()));
+		entity.setReceiverId(Long.parseLong(messageModel.getRecipient()));
+		entity.setContent(messageModel.getContent());
+		entity.setStatus(DeliveryStatus.PENDING);
 
 		MessageEntity saved = messageService.saveMessage(entity);
 		logger.info("Message saved with ID: {}", saved.getId());
