@@ -11,14 +11,16 @@ spring :
       ddl-auto : update
     show-sql : true
   mail : 
-    host : smtp.hostinger.com
+    host : email-smtp.ap-south-1.amazonaws.com
     port : 465
-    username :  admin@frrenzo.com
-    password : Namrata@1998
+    username : AKIAWADK4TT6NGYC3A5I
+    password : BMu3Vu1Xa6zoOk4uDMKl6N/4OYhBfIQEgvuAmfT4ioDI
     properties:
       mail:
         smtp:
           auth: true
+          ssl:
+            enable: true
 
 server :
   port : 9092
